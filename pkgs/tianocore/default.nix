@@ -1,4 +1,4 @@
-{ fetchFromGitHub, edk2, utillinux, nasm, iasl, dtc, lib }:
+{ fetchFromGitHub, edk2, utillinux, nasm, acpica-tools, dtc, lib }:
 let
   edk2-platforms = fetchFromGitHub {
     owner = "SolidRun";
@@ -15,7 +15,8 @@ let
 in
 edk2.mkDerivation "${edk2-platforms}/Platform/SolidRun/LX2160aCex7/LX2160aCex7.dsc" {
   name = "tianocore-honeycomb-lx2k";
-  nativeBuildInputs = [ utillinux nasm iasl dtc ];
+  nativeBuildInputs = [ utillinux nasm acpica-tools dtc ];
+  buildInputs = [ acpica-tools ];
   hardeningDisable = [ "format" "stackprotector" "pic" "fortify" ];
   preBuild = ''
     export PACKAGES_PATH=${edk2}:${edk2-platforms}:${edk2-non-osi}
