@@ -16,20 +16,13 @@
       };
     };
 
-    packages = {
-      "aarch64-linux" = let
-        pkgs = import nixos {
-          system = "aarch64-linux";
-          nixpkgs.localSystem.system = "aarch64-linux";
-          nixpkgs.localSystem.platform = self.lib.platforms.lx2k;
-        };
-      in rec {
+    overlay = final: prev: rec {
         isoImage = self.nixosConfigurations.isoImage.config.system.build.isoImage;
         
-        linux_lx2k = pkgs.callPackage ./pkgs/linux {};
-        linuxPackages_lx2k = pkgs.linuxPackagesFor linux_lx2k;
+        linux_lx2k = final.callPackage ./pkgs/linux {};
+        linuxPackages_lx2k = final.linuxPackagesFor linux_lx2k;
         
-        lx2k = pkgs.lib.makeScope pkgs.newScope (self: with self; {
+        lx2k = final.lib.makeScope final.newScope (self: with self; {
           rcw = self.callPackage ./pkgs/rcw { };
           atf = self.callPackage ./pkgs/atf { };
           ddr-phy-bin = self.callPackage ./pkgs/ddr-phy-bin { };
@@ -44,6 +37,18 @@
         lx2k-2600 = lx2k.overrideScope' (_: _: { ddrSpeed = 2600; });
         lx2k-2900 = lx2k.overrideScope' (_: _: { ddrSpeed = 2900; });
         lx2k-3200 = lx2k.overrideScope' (_: _: { ddrSpeed = 3200; });
+    };
+
+    packages = {
+      "aarch64-linux" = let
+        pkgs = import nixos {
+          system = "aarch64-linux";
+          overlays = [ self.overlay ];
+          nixpkgs.localSystem.system = "aarch64-linux";
+          nixpkgs.localSystem.platform = self.lib.platforms.lx2k;
+        };
+      in rec {
+        inherit (pkgs) isoImage linux_lx2k linuxPackages_lx2k lx2k lx2k-2400 lx2k-2600 lx2k-2900 lx2k-3200;
       };
     };
 
