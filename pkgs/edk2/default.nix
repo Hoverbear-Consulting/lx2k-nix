@@ -2,13 +2,13 @@
 let
   edk2 = stdenv.mkDerivation {
     pname = "edk2-solidrun";
-    version = "unstable-2020-08-31";
+    version = "edk2-stable202102-lx2160acex7";
     src = fetchFromGitHub {
       owner = "SolidRun";
       repo = "edk2";
       fetchSubmodules = true;
-      rev = "ef3bbb20003ee0c300468c642499b3338b8ebf32";
-      sha256 = "1af847y3hld8ky09m47xl17m0a4ksqkc4swpv44ycwls512z2fjw";
+      rev = "f55a316f6f601d3e1f1aeaa2a98decfa0d4dab9d";
+      sha256 = "MeCs8ZHJD7FWHnpXCj1vLwa4tzGp2BbdjrUBBg6qn7Y=";
     };
 
     depsBuildBuild = [ buildPackages.stdenv.cc ];

@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "SolidRun";
     repo = "rcw";
-    rev = "be11b24dd0c05a10c85bf48bd804afa652458460";
-    sha256 = "029qmic9r0gjs4zdsqyyyi4my108i95mjln4la59ml6m5y8mwjfw";
+    rev = "bf3f2f45f22fdd76252ce8326cc3413b473d55c4";
+    sha256 = "YTmYGADxiSW0pYaoqwOAjm77GaBR2VlpTMdChOvwJvQ=";
   };
 
   nativeBuildInputs = [ python3 gettext ];

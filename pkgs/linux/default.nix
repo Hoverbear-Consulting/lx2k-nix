@@ -1,13 +1,13 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 pkgs.buildLinux {
   src = pkgs.fetchFromGitHub {
     owner = "SolidRun";
     repo = "linux-stable";
-    rev = "4c71505dce5df9254daacb96c7a869741289a461";
-    sha256 = "1mqv6xvijrafkjf03bwjvfrcvd4h4576zbv8jpipfjzcxg6894zf";
+    rev = "50aac898777d5fa62130f5eca5546b637cb444e8";
+    sha256 = "iZInARLnOAjuzPaWu9ZHziQSubUHCNv2I8ZEAGrJJqI=";
   };
-  version = "5.10.23";
+  version = "5.15.0";
   kernelPatches = [ ];
   structuredExtraConfig = with pkgs.lib.kernel; {
     CGROUP_FREEZER = yes;
